@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Siong Sie Yang — Legal Internship Journal</title>
+    
+    <!-- Google Fonts: Fraunces + Newsreader -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,900;1,9..144,300;1,9..144,900&family=Newsreader:wght@300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 
+         * PLACEHOLDER CONTENT TO CUSTOMIZE:
+         * - Student name: "Alex Siong Sie Yang" (hero, nav, footer)
+         * - Practicum dates: Practicum I (03/08/2026 – 28/08/2026), Practicum II dates
+         * - Daily diary entries: date, title, description, category tags
+         * - Metrics: days logged, memos drafted, court attendances, practicum terms
+         * - Contact: email, LinkedIn URL
+         */
+        
+        /* ========== CSS CUSTOM PROPERTIES ========== */
+        :root {
+            /* Colors */
+            --color-paper: #f4f0e6;
+            --color-ink: #1c1a17;
+            --color-ochre: #bd5b1f;
+            --color-ochre-dark: #8f3f12;
+            --color-rule: #cfc7b3;
+            
+            /* Typography */
+            --font-display: 'Fraunces', serif;
+            --font-body: 'Newsreader', serif;
+            
+            /* Spacing */
+            --space-xs: clamp(0.5rem, 2vw, 1rem);
+            --space-sm: clamp(1rem, 3vw, 1.5rem);
+            --space-md: clamp(2rem, 5vw, 3rem);
+            --space-lg: clamp(3rem, 8vw, 5rem);
+            --space-xl: clamp(4rem, 10vw, 7rem);
+            
+            /* Animation */
+            --ease-smooth: cubic-bezier(0.33, 1, 0.68, 1);
+            --duration-fast: 0.2s;
+            --duration-base: 0.25s;
+        }
+        
+        /* ========== RESET & BASE ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            font-weight: 300;
+            font-size: clamp(1rem, 2vw, 1.125rem);
+            line-height: 1.7;
+            color: var(--color-ink);
+            background: var(--color-paper);
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Background texture & glows */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(189, 91, 31, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(189, 91, 31, 0.04) 0%, transparent 50%);
+        }
+        
+        /* SVG grain overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.3'/%3E%3C/svg%3E");
+            opacity: 0.04;
+            mix-blend-mode: multiply;
+        }
+        
+        /* Reduced motion overrides */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        /* ========== TYPOGRAPHY ========== */
+        h1, h2, h3, h4 {
+            font-family: var(--font-display);
+            line-height: 1.1;
+        }
+        
+        .hero-headline {
+            font-size: clamp(2.5rem, 10vw, 7.5rem);
+            font-weight: 900;
+            font-variation-settings: 'opsz' 144;
+            letter-spacing: -0.02em;
+        }
+        
+        .hero-headline em {
+            font-weight: 300;
+            font-style: italic;
+        }
+        
+        .section-heading {
+            font-size: clamp(2rem, 5vw, 3.375rem);
+            font-weight: 900;
+            font-variation-settings: 'opsz' 144;
+        }
+        
+        .eyebrow {
+            font-family: var(--font-body);
+            font-size: clamp(0.875rem, 2vw, 1rem);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 400;
+        }
+        
+        /* ========== LAYOUT ========== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+            position: relative;
+            z-index: 2;
+        }
+        
+        section {
+            border-top: 1px solid var(--color-rule);
+            position: relative;
+        }
+        
+        .section-number {
+            font-family: var(--font-display);
+            font-size: 0.875rem;
+            font-weight: 900;
+            color: var(--color-ochre);
+            letter-spacing: 0.2em;
+            margin-bottom: var(--space-sm);
+        }
+        
+        /* ========== NAVIGATION ========== */
+        .nav {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            padding: var(--space-sm) var(--space-md);
+            backdrop-filter: blur(12px);
+            background: rgba(244, 240, 230, 0.85);
+            border-bottom: 1px solid var(--color-rule);
+            z-index: 100;
+        }
+        
+        .nav-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: var(--color-ink);
+            text-decoration: none;
+        }
+        
+        .logo .accent {
+            color: var(--color-ochre);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: var(--space-md);
+            list-style: none;
+        }
+        
+        .nav-links a {
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-ink);
+            text-decoration: none;
+            position: relative;
+            padding-bottom: 2px;
+            transition: color var(--duration-base) var(--ease-smooth);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--color-ochre);
+            transition: width var(--duration-base) var(--ease-smooth);
+        }
+        
+        .nav-links a:hover {
+            color: var(--color-ochre);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        @media (max-width: 640px) {
+            .nav-links {
+                display: none;
+            }
+        }
+        
+        /* ========== HERO ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: var(--space-xl) var(--space-md);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            max-width: 1200px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-eyebrow {
+            opacity: 0;
+            transform: translateY(24px);
+            animation: fadeInUp 0.8s var(--ease-smooth) 0.1s forwards;
+        }
+        
+        .hero-headline {
+            margin: var(--space-sm) 0;
+            opacity: 0;
+            transform: translateY(24px);
+            animation: fadeInUp 0.8s var(--ease-smooth) 0.2s forwards;
+        }
+        
+        .hero-lede {
+            font-size: clamp(1.125rem, 3vw, 1.5rem);
+            font-weight: 300;
+            max-width: 700px;
+            margin: var(--space-md) 0;
+            opacity: 0;
+            transform: translateY(24px);
+            animation: fadeInUp 0.8s var(--ease-smooth) 0.3s forwards;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: var(--space-sm);
+            flex-wrap: wrap;
+            margin-top: var(--space-md);
+            opacity: 0;
+            transform: translateY(24px);
+            animation: fadeInUp 0.8s var(--ease-smooth) 0.4s forwards;
+        }
+        
+        .btn {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 400;
+            padding: 1rem 2rem;
+            border: 1px solid var(--color-ink);
+            background: var(--color-ink);
+            color: var(--color-paper);
+            text-decoration: none;
+            cursor: pointer;
+            transition: all var(--duration-base) var(--ease-smooth);
+            display: inline-block;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(28, 26, 23, 0.2);
+            background: var(--color-ochre);
+            border-color: var(--color-ochre);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--color-ink);
+            border: 1px solid var(--color-ink);
+        }
+        
+        .btn-outline:hover {
+            background: var(--color-ochre);
+            color: var(--color-paper);
+            border-color: var(--color-ochre);
+        }
+        
+        .scroll-hint {
+            position: absolute;
+            bottom: var(--space-md);
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            opacity: 0;
+            animation: fadeInUp 0.8s var(--ease-smooth) 0.6s forwards, bounce 2s ease-in-out 1.4s infinite;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-8px); }
+        }
+        
+        /* ========== OVERVIEW ========== */
+        .overview {
+            padding: var(--space-xl) 0;
+        }
+        
+        .overview-text {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-weight: 300;
+            line-height: 1.6;
+            max-width: 900px;
+        }
+        
+        .overview-text em {
+            font-style: italic;
+            color: var(--color-ochre);
+        }
+        
+        /* ========== PRACTICUM DIARY ========== */
+        .diary {
+            padding: var(--space-xl) 0;
+        }
+        
+        .diary-controls {
+            margin-top: var(--space-lg);
+            margin-bottom: var(--space-md);
+        }
+        
+        .practicum-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: var(--space-md);
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 400;
+            padding: 0.75rem 1.5rem;
+            border: 1px solid var(--color-rule);
+            background: transparent;
+            color: var(--color-ink);
+            cursor: pointer;
+            transition: all var(--duration-base) var(--ease-smooth);
+        }
+        
+        .tab-btn:hover {
+            border-color: var(--color-ochre);
+            color: var(--color-ochre);
+        }
+        
+        .tab-btn.active {
+            background: var(--color-ink);
+            color: var(--color-paper);
+            border-color: var(--color-ink);
+        }
+        
+        .week-filters {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .week-chip {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 400;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--color-rule);
+            background: transparent;
+            color: var(--color-ink);
+            cursor: pointer;
+            transition: all var(--duration-base) var(--ease-smooth);
+        }
+        
+        .week-chip:hover {
+            background: rgba(189, 91, 31, 0.1);
+            border-color: var(--color-ochre);
+        }
+        
+        .week-chip.active {
+            background: var(--color-ochre);
+            color: var(--color-paper);
+            border-color: var(--color-ochre);
+        }
+        
+        .diary-entries {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: var(--space-md);
+            margin-top: var(--space-md);
+        }
+        
+        .diary-card {
+            background: var(--color-paper);
+            border: 1px solid var(--color-rule);
+            padding: var(--space-md);
+            transition: all var(--duration-base) var(--ease-smooth);
+            position: relative;
+        }
+        
+        .diary-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(28, 26, 23, 0.1);
+            border-color: var(--color-ochre);
+        }
+        
+        .diary-date {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            font-weight: 900;
+            color: var(--color-ochre);
+            letter-spacing: 0.1em;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .diary-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+            font-weight: 900;
+            margin-bottom: var(--space-sm);
+            line-height: 1.2;
+        }
+        
+        .diary-description {
+            font-size: 1rem;
+            font-weight: 300;
+            line-height: 1.6;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .diary-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .diary-tag {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            background: rgba(189, 91, 31, 0.1);
+            color: var(--color-ochre-dark);
+            border: 1px solid rgba(189, 91, 31, 0.2);
+        }
+        
+        .practicum-content {
+            display: none;
+        }
+        
+        .practicum-content.active {
+            display: block;
+        }
+        
+        .upcoming-message {
+            text-align: center;
+            padding: var(--space-xl) var(--space-md);
+            font-size: 1.25rem;
+            font-style: italic;
+            color: var(--color-ochre);
+        }
+        
+        /* ========== 3D SCROLL SECTION ========== */
+        .scroll-3d-section {
+            height: 180vh;
+            position: relative;
+            border-top: 1px solid var(--color-rule);
+        }
+        
+        .scroll-3d-sticky {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .scroll-3d-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        
+        .scroll-3d-text {
+            position: relative;
+            z-index: 2;
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 300;
+            font-style: italic;
+            text-align: center;
+            mix-blend-mode: multiply;
+            padding: var(--space-md);
+            max-width: 900px;
+        }
+        
+        /* ========== METRICS ========== */
+        .metrics {
+            padding: var(--space-xl) 0;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-lg);
+            margin-top: var(--space-lg);
+        }
+        
+        .metric-item {
+            text-align: left;
+        }
+        
+        .metric-number {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 900;
+            color: var(--color-ink);
+            line-height: 1;
+        }
+        
+        .metric-number .accent {
+            color: var(--color-ochre);
+        }
+        
+        .metric-label {
+            font-size: 1rem;
+            font-weight: 300;
+            margin-top: var(--space-xs);
+            color: var(--color-ink);
+            opacity: 0.7;
+        }
+        
+        /* ========== CONTACT ========== */
+        .contact {
+            padding: var(--space-xl) 0;
+            text-align: center;
+        }
+        
+        .contact-headline {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 900;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+            list-style: none;
+        }
+        
+        .contact-links a {
+            font-family: var(--font-body);
+            font-size: 1.125rem;
+            font-weight: 400;
+            color: var(--color-ink);
+            text-decoration: none;
+            position: relative;
+            padding-bottom: 2px;
+        }
+        
+        .contact-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--color-ochre);
+            transform: scaleX(1);
+            transition: transform var(--duration-base) var(--ease-smooth);
+        }
+        
+        .contact-links a:hover::after {
+            transform: scaleX(0);
+        }
+        
+        /* ========== FOOTER ========== */
+        .footer {
+            padding: var(--space-lg) var(--space-md);
+            text-align: center;
+            border-top: 1px solid var(--color-rule);
+            font-size: 0.875rem;
+            color: var(--color-ink);
+            opacity: 0.6;
+        }
+        
+        /* ========== SCROLL REVEAL ========== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s var(--ease-smooth), transform 0.6s var(--ease-smooth);
+        }
+        
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .diary-entries {
+                grid-template-columns: 1fr;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 380px) {
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .practicum-tabs {
+                flex-direction: column;
+            }
+            
+            .tab-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="#" class="logo">JD<span class="accent">.</span></a>
+            <ul class="nav-links">
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#diary">Practicum Journals</a></li>
+                <li><a href="#metrics">Metrics</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content container">
+            <p class="eyebrow hero-eyebrow">Second-Year Law Student · Malaysia · Practicum Journal</p>
+            <h1 class="hero-headline">Theory applied to <em>legal practice</em>.</h1>
+            <p class="hero-lede">I'm Alex Siong Sie Yang, and this is my daily record of bridging classroom doctrine with courtroom discipline across two practicum terms.</p>
+            <div class="hero-buttons">
+                <a href="#diary" class="btn">Read Daily Diary</a>
+                <a href="#overview" class="btn btn-outline">Internship Scope</a>
+            </div>
+        </div>
+        <div class="scroll-hint">Scroll</div>
+    </section>
+    
+    <!-- Overview Section -->
+    <section id="overview" class="overview">
+        <div class="container">
+            <div class="section-number reveal">01</div>
+            <p class="overview-text reveal">
+                My practicum journal documents the <em>intersection of legal theory and applied practice</em>. 
+                From <em>civil litigation research</em> to drafting memos, attending court hearings, and 
+                analyzing case law — every entry captures the discipline required to transition from 
+                student to practitioner. This record spans <em>Practicum I (03/08/2026 – 28/08/2026)</em> 
+                and the forthcoming Practicum II, offering a comprehensive view of my legal internship journey.
+            </p>
+        </div>
+    </section>
+    
+    <!-- Practicum Diary Section -->
+    <section id="diary" class="diary">
+        <div class="container">
+            <div class="section-number reveal">02</div>
+            <h2 class="section-heading reveal">Practicum Journals</h2>
+            
+            <div class="diary-controls reveal">
+                <!-- Practicum Tabs -->
+                <div class="practicum-tabs">
+                    <button class="tab-btn active" data-practicum="practicum1">
+                        Practicum I (03/08/2026 – 28/08/2026)
+                    </button>
+                    <button class="tab-btn" data-practicum="practicum2">
+                        Practicum II (Upcoming)
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Practicum I Content -->
+            <div id="practicum1" class="practicum-content active">
+                <!-- Week Filters -->
+                <div class="week-filters reveal">
+                    <button class="week-chip active" data-week="all">All Weeks</button>
+                    <button class="week-chip" data-week="1">Week 1</button>
+                    <button class="week-chip" data-week="2">Week 2</button>
+                    <button class="week-chip" data-week="3">Week 3</button>
+                    <button class="week-chip" data-week="4">Week 4</button>
+                </div>
+                
+                <!-- Diary Entries -->
+                <div class="diary-entries reveal">
+                    <!-- Week 1 Entries -->
+                    <div class="diary-card" data-week="1">
+                        <div class="diary-date">MON, 03 AUG 2026</div>
+                        <h3 class="diary-title">Orientation & Case File Review</h3>
+                        <p class="diary-description">
+                            First day at the firm. Received orientation on case management systems, 
+                            ethical guidelines, and confidentiality protocols. Reviewed three active 
+                            civil litigation files to understand current caseload.
+                        </p>
+                        <div class="diary-tags">
+                            <span class="diary-tag">Orientation</span>
+                            <span class="diary-tag">Civil Litigation</span>
+                        </div>
+                    </div>
+                    
+                    <div class="diary-card" data-week="1">
+                        <div class="diary-date">TUE, 04 AUG 2026</div>
+                        <h3 class="diary-title">Legal Research: Breach of Contract</h3>
+                        <p class="diary-description">
+                            Conducted comprehensive research on remedies for breach of contract under 
+                            Malaysian Contract Act. Compiled case law and statutory provisions for 
+                            senior associate's review.
+                        </p>
+                        <div class="diary-tags">
+                            <span class="diary-tag">Research</span>
+                            <span class="diary-tag">Contract Law</span>
+                        </div>
+                    </div>
+                    
+                    <div class="diary-card" data-week="1">
+                        <div class="diary-date">WED, 05 AUG 2026</div>
+                        <h3 class="diary-title">Drafting Legal Memo</h3>
+                        <p class="diary-description">
+                            Drafted internal memo analyzing precedent for upcoming contract dispute. 
+                            Focused on statutory interpretation and application of relevant case law 
+                            to client's factual matrix.
+                        </p>
+                        <div class="diary-tags">
+                            <span class="diary-tag">Drafting</span>
+                            <span class="diary-tag">Memo</span>
+                        </div>
+                    </div>
+                    
+                    <div class="diary-card" data-week="1">
+                        <div class="diary-date">THU, 06 AUG 2026</div>
+                        <h3 class="diary-title">Court Observation: Civil Proceedings</h3>
+                        <p class="diary-description">
+                            Attended High Court proceedings for civil matter involving property dispute. 
+                            Observed oral submissions, judicial questioning, and courtroom decorum. 
+                            Documented key procedural steps.
+                        </p>
+                        <div class="diary-tags">
+                            <span class="diary-tag">Court Attendance</span>
+                            <span class="diary-tag">Civil Litigation</span>
+                        </div>
+                    </div>
+                    
+                    <div class="diary-card" data-week="1">
+                        <div class="diary-date">FRI, 07 AUG 2026</div>
+                        <h3 class="diary-title">Client Meeting Preparation</h3>
+                        <p class="diary-description">
+                            Assisted in preparing client briefing materials for upcoming consultation. 
+                            Summarized case status, legal options, and potential outcomes in accessible 
+                            language for lay client.
+                        </p>
+                        <div class="diary-tags">
+                            <span class="diary-tag">Client Meeting</span>
+                            <span class="diary-tag">Drafting</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Week 2 Entries -->
+                    <div class="diary-card" data-week="2">
+                        <div class="diary-date">MON, 10 AUG 2026</div>
+                        <h3 class="diary-title">Evidence Analysis for Trial</h3>
+                        <p class="diary-description">
+                            Reviewed documentary evidence for upcoming trial. Organized exhibits, 
+                            cross-referenced witness statements, and flagged inconsistencies for 
+                            counsel's attention.
+                        </p>
+                        <div class="diary-tags">
+                            <span class="diary-tag">Research</span>
+                            <span class="diary-tag">Trial Preparation</span>
+                        </div>
+                    </div>
+                    
+                    <div class="diary-card" data-week="2">
+                        <div class="diary-date">TUE, 11 AUG 2026</div>
+                        <h3 class="diary-title">Drafting Statement of Claim</h3>
+                        <p class="diary-description">
+                            Prepared first draft of Statement of Claim for new commercial litigation 
+                            matter. Focused on clear articulation of facts, legal grounds, and relief 
+                            sought per Rules of Court.
+                        </p>
+                        <div class="diary-tags">
+                            <span class="diary-tag">Drafting</span>
+                            <span class="diary-tag">Pleadings</span>
+                        </div>
+                    </div>
+                    
+                    <div class="diary-card" data-week="2">
+                        <div class="diary-date">WED, 12 AUG 2026</div>
+                        <h3 class="diary-title">Legal Opinion Research</h3>
+                        <p class="diary-description">
+                            Researched tort liability issues for partner's legal opinion. Analyzed 
+                            negligence elements, duty of care, and causation principles under Malaysian 
+                            common law and recent Federal Court decisions.
+                        </p>
+                        <div class="diary-tags">
+                            <span class="diary-tag">Research</span>
+                            <span class="diary-tag">Tort Law</span>
+                        </div>
+                    </div>
+                    
+                    <div class="diary-card" data-week="2">
+                        <div class="diary-date">THU, 13 AUG 2026</div>
+                        <h3 class="diary-title">Case Management Conference</h3>
+                        <p class="diary-description">
+                            Attended Case Management Conference at Sessions Court. Observed judicial 
+                            directions on timelines, discovery obligations, and pre-trial procedures. 
+                            Took detailed minutes for file.
+                        </p>
+                        <div class="diary-tags">
+                            <span class="diary-tag">Court Attendance</span>
+                            <span class="diary-tag">Procedure</span>
+                        </div>
+                    </div>
+                    
+                    <div class="diary-card" data-week="2">
+                        <div class="diary-date">FRI, 14 AUG 2026</div>
+                        <h3 class="diary-title">Contract Review & Annotation</h3>
+                        <p class="diary-description">
+                            Reviewed commercial lease agreement for potential risk areas. Annotated 
+                            clauses concerning termination rights, indemnities, and dispute resolution. 
+                            Flagged ambiguities for senior review.
+                        </p>
+                        <div class="diary-tags">
+                            <span class="diary-tag">Contract Review</span>
+                            <span class="diary-tag">Commercial Law</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Week 3 Entries -->
+                    <div class="diary-card" data-week="3">
+                        <div class="diary-date">MON, 17 AUG 2026</div>
+                        <h3 class="diary-title">Discovery Document Review</h3>
+                        <p class="diary-description">
+                            Reviewed opposing party's discovery documents. Identified relevant exhibits, 
+                            privileged communications, and documents requiring further clarification. 
+                            Prepared summary for counsel.
+                        </p>
+                        <div class="diary-tags">
+                            <span class="diary-tag">Discovery</span>
+                            <span class="diary-tag">Litigation</span>
+                        </div>
+                    </div>
+                    
+                    <div class="diary-card" data-week="3">
+                        <div class="diary-date">TUE, 18 AUG 2026</div>
+                        <h3 class="diary-title">Witness Statement Drafting</h3>
+                        <p class="diary-description">
+                            Assisted in drafting witness statement for factual witness. Ensured 
+                            chronological clarity, relevance to pleadings, and compliance with 
+                            evidentiary requirements under Evidence Act.
+                        </p>
+                        <div class="diary-tags">
+                            <span class="diary-tag">Drafting</span>
+                            <span class="diary-tag">Evidence</span>
+                        </div>
+                    </div>
+                    
+                    <div class="diary-card" data-week="3">
+                        <div class="diary-date">WED, 19 AUG 2026</div>
+                        <h3 class="diary-title">Legal Writing Workshop</h3>
+                        <p class="diary-description">
+                            Participated in firm's internal workshop on persuasive legal writing. 
+                            Learned techniques for structuring arguments, citing authority effectively, 
+                            and avoiding common drafting pitfalls.
+                        </p>
+                        <div class="diary-tags">
+                            <span class="diary-tag">Training</span>
+                            <span class="diary-tag">Legal Writing</span>
+                        </div>
+                    </div>
+                    
+                    <div class="diary-card" data-week="3">
+                        <div class="diary-date">THU, 20 AUG 2026</div>
+                        <h3 class="diary-title">Court Hearing: Interlocutory Application</h3>
+                        <p class="diary-description">
+                            Attended hearing for interlocutory application seeking injunctive relief. 
+                            Observed counsel's oral advocacy, judicial analysis of legal tests, and 
+                            court's exercise of discretion.
+                        </p>
+                        <div class="diary-tags">
+                            <span class="diary-tag">Court Attendance</span>
+                            <span class="diary-tag">Injunction</span>
+                        </div>
+                    </div>
+                    
+                    <div class="diary-card" data-week="3">
+                        <div class="diary-date">FRI, 21 AUG 2026</div>
+                        <h3 class="diary-title">Client Advisory Memo</h3>
+                        <p class="diary-description">
+                            Drafted advisory memo for client on settlement prospects. Analyzed strengths, 
+                            weaknesses, litigation costs, and strategic considerations. Presented 
+                            cost-benefit analysis in clear terms.
+                        </p>
+                        <div class="diary-tags">
+                            <span class="diary-tag">Drafting</span>
+                            <span class="diary-tag">Advisory</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Week 4 Entries -->
+                    <div class="diary-card" data-week="4">
+                        <div class="diary-date">MON, 24 AUG 2026</div>
+                        <h3 class="diary-title">Trial Preparation & Bundles</h3>
+                        <p class="diary-description">
+                            Assisted in preparing trial bundles for upcoming hearing. Organized pleadings, 
+                            affidavits, exhibits, and submissions per Court of Appeal Practice Direction. 
+                            Verified pagination and cross-references.
+                        </p>
+                        <div class="diary-tags">
+                            <span class="diary-tag">Trial Preparation</span>
+                            <span class="diary-tag">Procedure</span>
+                        </div>
+                    </div>
+                    
+                    <div class="diary-card" data-week="4">
+                        <div class="diary-date">TUE, 25 AUG 2026</div>
+                        <h3 class="diary-title">Legal Precedent Analysis</h3>
+                        <p class="diary-description">
+                            Analyzed recent Court of Appeal judgment on summary judgment applications. 
+                            Extracted ratio decidendi, distinguished from prior cases, and prepared 
+                            case note for firm's knowledge database.
+                        </p>
+                        <div class="diary-tags">
+                            <span class="diary-tag">Research</span>
+                            <span class="diary-tag">Case Law</span>
+                        </div>
+                    </div>
+                    
+                    <div class="diary-card" data-week="4">
+                        <div class="diary-date">WED, 26 AUG 2026</div>
+                        <h3 class="diary-title">Settlement Negotiation Observation</h3>
+                        <p class="diary-description">
+                            Observed mediation session for employment dispute. Learned negotiation 
+                            tactics, compromise strategies, and drafting of settlement terms. Saw 
+                            practical application of alternative dispute resolution.
+                        </p>
+                        <div class="diary-tags">
+                            <span class="diary-tag">Mediation</span>
+                            <span class="diary-tag">ADR</span>
+                        </div>
+                    </div>
+                    
+                    <div class="diary-card" data-week="4">
+                        <div class="diary-date">THU, 27 AUG 2026</div>
+                        <h3 class="diary-title">Appeal Ground Drafting</h3>
+                        <p class="diary-description">
+                            Drafted preliminary grounds of appeal for client's case. Identified errors 
+                            of law, fact, and mixed fact-law from trial judgment. Structured grounds 
+                            per appellate rules and best practices.
+                        </p>
+                        <div class="diary-tags">
+                            <span class="diary-tag">Drafting</span>
+                            <span class="diary-tag">Appeals</span>
+                        </div>
+                    </div>
+                    
+                    <div class="diary-card" data-week="4">
+                        <div class="diary-date">FRI, 28 AUG 2026</div>
+                        <h3 class="diary-title">Practicum I Reflection & Debrief</h3>
+                        <p class="diary-description">
+                            Final day of Practicum I. Met with supervising partner for feedback session. 
+                            Reflected on skills gained in research, drafting, court observation, and 
+                            client interaction. Received guidance for Practicum II preparation.
+                        </p>
+                        <div class="diary-tags">
+                            <span class="diary-tag">Reflection</span>
+                            <span class="diary-tag">Feedback</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Practicum II Content -->
+            <div id="practicum2" class="practicum-content">
+                <div class="upcoming-message">
+                    Practicum II begins soon. Entries will be documented here as the term progresses.
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 3D Scroll Section -->
+    <div class="scroll-3d-section">
+        <div class="scroll-3d-sticky">
+            <canvas id="scroll3DCanvas" class="scroll-3d-canvas"></canvas>
+            <div class="scroll-3d-text">Rigorous legal analysis, grounded in discipline.</div>
+        </div>
+    </div>
+    
+    <!-- Metrics Section -->
+    <section id="metrics" class="metrics">
+        <div class="container">
+            <div class="section-number reveal">03</div>
+            <h2 class="section-heading reveal">Cumulative Metrics</h2>
+            <div class="metrics-grid">
+                <div class="metric-item reveal">
+                    <div class="metric-number"><span class="metric-value" data-target="20">0</span><span class="accent">+</span></div>
+                    <div class="metric-label">Days Logged</div>
+                </div>
+                <div class="metric-item reveal">
+                    <div class="metric-number"><span class="metric-value" data-target="15">0</span><span class="accent">+</span></div>
+                    <div class="metric-label">Memos Drafted</div>
+                </div>
+                <div class="metric-item reveal">
+                    <div class="metric-number"><span class="metric-value" data-target="8">0</span><span class="accent">+</span></div>
+                    <div class="metric-label">Court Attendances</div>
+                </div>
+                <div class="metric-item reveal">
+                    <div class="metric-number"><span class="metric-value" data-target="2">0</span><span class="accent"></span></div>
+                    <div class="metric-label">Practicum Terms</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-number reveal">04</div>
+            <h2 class="contact-headline reveal">Let's Connect</h2>
+            <ul class="contact-links reveal">
+                <li><a href="mailto:alex.siong@example.com">Email</a></li>
+                <li><a href="https://linkedin.com/in/alexsiong" target="_blank" rel="noopener">LinkedIn</a></li>
+            </ul>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            &copy; 2026 Alex Siong Sie Yang. All rights reserved.
+        </div>
+    </footer>
+    
+    <!-- Three.js Import Map -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.module.min.js"
+        }
+    }
+    </script>
+    
+    <!-- Main JavaScript -->
+    <script type="module">
+        import * as THREE from 'three';
+        
+        // ========== UTILITY FUNCTIONS ==========
+        
+        function lerp(start, end, factor) {
+            return start + (end - start) * factor;
+        }
+        
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        
+        // ========== PRACTICUM TAB SWITCHING ==========
+        
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const practicumContents = document.querySelectorAll('.practicum-content');
+        
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetPracticum = btn.dataset.practicum;
+                
+                // Update active tab
+                tabButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Show target content
+                practicumContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === targetPracticum) {
+                        content.classList.add('active');
+                    }
+                });
+            });
+        });
+        
+        // ========== WEEK FILTER LOGIC ==========
+        
+        const weekChips = document.querySelectorAll('.week-chip');
+        const diaryCards = document.querySelectorAll('.diary-card');
+        
+        weekChips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                const targetWeek = chip.dataset.week;
+                
+                // Update active chip
+                weekChips.forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                
+                // Filter diary cards
+                diaryCards.forEach(card => {
+                    if (targetWeek === 'all') {
+                        card.style.display = 'block';
+                    } else {
+                        if (card.dataset.week === targetWeek) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        });
+        
+        // ========== SCROLL REVEAL ==========
+        
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+        
+        document.querySelectorAll('.reveal').forEach(el => {
+            revealObserver.observe(el);
+        });
+        
+        // ========== METRIC COUNTER ANIMATION ==========
+        
+        const metricObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const valueElement = entry.target;
+                    const target = parseInt(valueElement.dataset.target);
+                    let current = 0;
+                    const increment = target / 50;
+                    const duration = 1500;
+                    const stepTime = duration / 50;
+                    
+                    const counter = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            valueElement.textContent = target;
+                            clearInterval(counter);
+                        } else {
+                            valueElement.textContent = Math.floor(current);
+                        }
+                    }, stepTime);
+                    
+                    metricObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        document.querySelectorAll('.metric-value').forEach(el => {
+            metricObserver.observe(el);
+        });
+        
+        // ========== 3D SCROLL SECTION (LEGAL SEAL) ==========
+        
+        (function initScroll3D() {
+            const canvas = document.getElementById('scroll3DCanvas');
+            const section = document.querySelector('.scroll-3d-section');
+            if (!canvas || !section) return;
+            
+            // Check WebGL availability
+            try {
+                const testCtx = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                if (!testCtx) {
+                    canvas.style.display = 'none';
+                    return;
+                }
+            } catch (e) {
+                canvas.style.display = 'none';
+                return;
+            }
+            
+            const scene = new THREE.Scene();
+            scene.fog = new THREE.Fog(0xf4f0e6, 8, 20);
+            
+            const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+            
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            
+            // Create Legal Seal geometry (cylinder with embossed ring)
+            const sealGroup = new THREE.Group();
+            
+            // Main cylinder seal
+            const cylinderGeometry = new THREE.CylinderGeometry(2, 2, 0.3, 32);
+            const cylinderMaterial = new THREE.MeshStandardMaterial({
+                color: 0xbd5b1f,
+                metalness: 0.5,
+                roughness: 0.3
+            });
+            const cylinder = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
+            sealGroup.add(cylinder);
+            
+            // Embossed ring
+            const ringGeometry = new THREE.TorusGeometry(1.5, 0.15, 16, 50);
+            const ringMaterial = new THREE.MeshStandardMaterial({
+                color: 0x8f3f12,
+                metalness: 0.6,
+                roughness: 0.2
+            });
+            const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+            ring.rotation.x = Math.PI / 2;
+            sealGroup.add(ring);
+            
+            // Central emblem (smaller cylinder)
+            const emblemGeometry = new THREE.CylinderGeometry(0.5, 0.5, 0.5, 32);
+            const emblemMaterial = new THREE.MeshStandardMaterial({
+                color: 0x1c1a17,
+                metalness: 0.7,
+                roughness: 0.2
+            });
+            const emblem = new THREE.Mesh(emblemGeometry, emblemMaterial);
+            sealGroup.add(emblem);
+            
+            scene.add(sealGroup);
+            
+            // Three-point lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambientLight);
+            
+            const keyLight = new THREE.DirectionalLight(0xbd5b1f, 1.2);
+            keyLight.position.set(5, 5, 5);
+            scene.add(keyLight);
+            
+            const fillLight = new THREE.DirectionalLight(0x8f3f12, 0.8);
+            fillLight.position.set(-5, 0, 5);
+            scene.add(fillLight);
+            
+            const backLight = new THREE.DirectionalLight(0x1c1a17, 0.5);
+            backLight.position.set(0, -5, -5);
+            scene.add(backLight);
+            
+            camera.position.z = 10;
+            
+            // Scroll progress
+            let scrollProgress = 0;
+            let targetProgress = 0;
+            let animationId;
+            let isVisible = false;
+            
+            function updateScrollProgress() {
+                const rect = section.getBoundingClientRect();
+                const sectionHeight = section.offsetHeight;
+                const viewportHeight = window.innerHeight;
+                
+                const scrollStart = -rect.top;
+                const scrollRange = sectionHeight - viewportHeight;
+                targetProgress = Math.max(0, Math.min(1, scrollStart / scrollRange));
+            }
+            
+            function animate() {
+                if (!isVisible) return;
+                
+                animationId = requestAnimationFrame(animate);
+                
+                // Smooth lerp
+                scrollProgress = lerp(scrollProgress, targetProgress, 0.1);
+                
+                if (!prefersReducedMotion) {
+                    // Rotate seal
+                    sealGroup.rotation.y = scrollProgress * Math.PI * 2;
+                    sealGroup.rotation.x = scrollProgress * Math.PI * 0.5;
+                    
+                    // Scale seal
+                    const scale = 0.5 + scrollProgress * 1.5;
+                    sealGroup.scale.set(scale, scale, scale);
+                    
+                    // Morph color from ochre to ink
+                    const r = lerp(189/255, 28/255, scrollProgress);
+                    const g = lerp(91/255, 26/255, scrollProgress);
+                    const b = lerp(31/255, 23/255, scrollProgress);
+                    cylinderMaterial.color.setRGB(r, g, b);
+                    
+                    // Camera dolly
+                    camera.position.z = lerp(10, 6, scrollProgress);
+                }
+                
+                renderer.render(scene, camera);
+            }
+            
+            // Throttled scroll
+            let rafId = null;
+            function onScroll() {
+                if (!rafId) {
+                    rafId = requestAnimationFrame(() => {
+                        updateScrollProgress();
+                        rafId = null;
+                    });
+                }
+            }
+            
+            window.addEventListener('scroll', onScroll, { passive: true });
+            
+            // Intersection Observer
+            const canvasObserver = new IntersectionObserver(([entry]) => {
+                isVisible = entry.isIntersecting;
+                if (isVisible) {
+                    updateScrollProgress();
+                    animate();
+                } else {
+                    cancelAnimationFrame(animationId);
+                }
+            }, { rootMargin: '100px' });
+            
+            canvasObserver.observe(section);
+            
+            // Resize handler
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        })();
+        
+        // ========== SMOOTH SCROLL FOR NAV LINKS ==========
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    const navHeight = document.querySelector('.nav').offsetHeight;
+                    const targetPosition = target.offsetTop - navHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+    </script>
+    
+</body>
+</html>
