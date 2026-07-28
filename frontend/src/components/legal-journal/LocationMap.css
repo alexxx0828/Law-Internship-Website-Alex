@@ -1,0 +1,115 @@
+.location-section {
+  background: var(--color-paper);
+}
+
+.location-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+.location-card {
+  background: var(--color-paper);
+  border: 1px solid var(--color-rule);
+  padding: clamp(2rem, 4vw, 3rem);
+  position: relative;
+  transition: all 0.4s var(--ease-smooth);
+}
+
+.location-card:hover {
+  border-color: var(--color-ochre);
+  box-shadow: 0 12px 40px rgba(189, 91, 31, 0.12);
+}
+
+.location-card-pending {
+  opacity: 0.7;
+}
+
+.location-card-pending:hover {
+  opacity: 1;
+}
+
+.location-label {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: var(--color-ochre);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.location-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 900;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.location-address {
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+  color: var(--color-ink);
+  opacity: 0.8;
+}
+
+.location-dates {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--color-ochre-dark);
+  margin-bottom: 1.5rem;
+}
+
+.location-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.location-tag {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  background: rgba(189, 91, 31, 0.1);
+  color: var(--color-ochre-dark);
+  border: 1px solid rgba(189, 91, 31, 0.2);
+}
+
+.map-container {
+  width: 100%;
+  height: 500px;
+  position: relative;
+  border: 1px solid var(--color-rule);
+  overflow: hidden;
+}
+
+.map-note {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(244, 240, 230, 0.95);
+  backdrop-filter: blur(12px);
+  padding: 1.5rem;
+  border-top: 1px solid var(--color-rule);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.map-note strong {
+  color: var(--color-ochre);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .location-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .map-container {
+    height: 400px;
+  }
+}

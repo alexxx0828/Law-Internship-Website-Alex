@@ -1,0 +1,16 @@
+.overview {
+  background: var(--color-paper);
+}
+
+.overview-text {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 900px;
+}
+
+.overview-text em {
+  font-style: italic;
+  color: var(--color-ochre);
+  font-weight: 400;
+}

@@ -1,0 +1,146 @@
+.diary-section {
+  background: var(--color-paper);
+}
+
+.diary-controls {
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.practicum-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 400;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid var(--color-rule);
+  background: transparent;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.tab-btn:hover {
+  border-color: var(--color-ochre);
+  color: var(--color-ochre);
+}
+
+.tab-btn.active {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  border-color: var(--color-ink);
+}
+
+.week-filters {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.week-chip {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 400;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-rule);
+  background: transparent;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.week-chip:hover {
+  background: rgba(189, 91, 31, 0.1);
+  border-color: var(--color-ochre);
+}
+
+.week-chip.active {
+  background: var(--color-ochre);
+  color: var(--color-paper);
+  border-color: var(--color-ochre);
+}
+
+.diary-entries {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: clamp(1.5rem, 3vw, 2rem);
+}
+
+.diary-card {
+  background: var(--color-paper);
+  border: 1px solid var(--color-rule);
+  padding: clamp(1.5rem, 3vw, 2rem);
+  transition: all 0.4s var(--ease-smooth);
+  position: relative;
+}
+
+.diary-card:hover {
+  border-color: var(--color-ochre);
+  box-shadow: 0 12px 40px rgba(189, 91, 31, 0.12);
+}
+
+.diary-date {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: var(--color-ochre);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+}
+
+.diary-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  font-weight: 900;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.diary-description {
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.diary-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.diary-tag {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  background: rgba(189, 91, 31, 0.1);
+  color: var(--color-ochre-dark);
+  border: 1px solid rgba(189, 91, 31, 0.2);
+}
+
+.upcoming-message {
+  text-align: center;
+  padding: clamp(4rem, 8vw, 6rem) clamp(2rem, 4vw, 3rem);
+  font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+  font-style: italic;
+  color: var(--color-ochre);
+}
+
+@media (max-width: 768px) {
+  .diary-entries {
+    grid-template-columns: 1fr;
+  }
+
+  .practicum-tabs {
+    flex-direction: column;
+  }
+
+  .tab-btn {
+    width: 100%;
+  }
+}
