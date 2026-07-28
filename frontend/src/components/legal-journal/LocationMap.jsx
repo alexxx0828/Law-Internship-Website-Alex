@@ -9,14 +9,14 @@ const LocationMap = () => {
     threshold: 0.2,
   });
 
-  // Court of Appeal, Putrajaya coordinates
+  // Court of Appeal, Putrajaya coordinates (Istana Kehakiman / Palace of Justice, Presint 3)
   const practicum1Location = {
-    lat: 2.9287,
-    lng: 101.6914,
+    lat: 2.9175,
+    lng: 101.6855,
   };
 
-  // Static map image URL (using OpenStreetMap with Leaflet style)
-  const staticMapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=101.6814%2C2.9187%2C101.7014%2C2.9387&layer=mapnik&marker=${practicum1Location.lat}%2C${practicum1Location.lng}`;
+  // Static map image URL (using OpenStreetMap embed centered on the Palace of Justice)
+  const staticMapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=101.6775%2C2.9115%2C101.6935%2C2.9235&layer=mapnik&marker=${practicum1Location.lat}%2C${practicum1Location.lng}`;
 
   const textVariants = {
     hidden: { opacity: 0, y: 40 },
