@@ -20,6 +20,15 @@ const Lightbox = ({ photos, index, onClose, onNavigate }) => {
     return () => window.removeEventListener('keydown', handleKey);
   }, [handleKey]);
 
+  // Lock background scroll while lightbox is open
+  useEffect(() => {
+    if (isOpen) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => { document.body.style.overflow = prev; };
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
   const photo = photos[index];
   const hasMultiple = photos.length > 1;
