@@ -52,3 +52,10 @@ Personal legal internship journal landing page for a second-year law student in 
 - Frontend: ContentContext (CONTENT_DEFAULTS + server overrides), Editable component (ref-based uncontrolled contentEditable, saves on blur, hardened against caret-jump/wipe)
 - Editable keys cover Hero, Overview, Location cards + map caption, Diary heading, Scroll text, Metrics heading+labels, Contact heading+footer
 - Tested: 16/16 backend + 100% frontend (edits persist across reload). iteration_4.json
+
+## Update (2026-07-28) — Deploy Login Fix
+- Bug: login failed on deployed/GitHub version (worked in preview)
+- RCA: .env not committed → JWT_SECRET missing (backend crash) + admin seeded with wrong default creds
+- Fix: JWT_SECRET fallback default; seed_admin defaults now alex@journal.com / alex2026 (works without .env)
+- Also: root route / now renders the journal (was placeholder)
+- Verified: backend 18/18, frontend 100% (iteration_5.json)
