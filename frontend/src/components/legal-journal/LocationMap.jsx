@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import './LocationMap.css';
 
 const LocationMap = () => {
@@ -16,46 +15,8 @@ const LocationMap = () => {
     lng: 101.6914,
   };
 
-  const mapContainerStyle = {
-    width: '100%',
-    height: '100%',
-    borderRadius: '0',
-  };
-
-  const mapOptions = {
-    styles: [
-      {
-        featureType: 'all',
-        elementType: 'geometry',
-        stylers: [{ color: '#f4f0e6' }],
-      },
-      {
-        featureType: 'all',
-        elementType: 'labels.text.fill',
-        stylers: [{ color: '#1c1a17' }],
-      },
-      {
-        featureType: 'all',
-        elementType: 'labels.text.stroke',
-        stylers: [{ color: '#f4f0e6' }, { lightness: 16 }],
-      },
-      {
-        featureType: 'road',
-        elementType: 'geometry',
-        stylers: [{ color: '#cfc7b3' }],
-      },
-      {
-        featureType: 'water',
-        elementType: 'geometry',
-        stylers: [{ color: '#bd5b1f' }, { lightness: 60 }],
-      },
-    ],
-    disableDefaultUI: false,
-    zoomControl: true,
-    mapTypeControl: false,
-    streetViewControl: false,
-    fullscreenControl: true,
-  };
+  // Static map image URL (using OpenStreetMap with Leaflet style)
+  const staticMapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=101.6814%2C2.9187%2C101.7014%2C2.9387&layer=mapnik&marker=${practicum1Location.lat}%2C${practicum1Location.lng}`;
 
   const textVariants = {
     hidden: { opacity: 0, y: 40 },
@@ -133,16 +94,21 @@ const LocationMap = () => {
           animate={inView ? 'visible' : 'hidden'}
           variants={textVariants}
         >
-          <LoadScript googleMapsApiKey="">
-            <GoogleMap
-              mapContainerStyle={mapContainerStyle}
-              center={practicum1Location}
-              zoom={15}
-              options={mapOptions}
-            >
-              <Marker position={practicum1Location} />
-            </GoogleMap>
-          </LoadScript>
+          <iframe
+            title="Court of Appeal, Putrajaya Location"
+            className="map-iframe"
+            src={staticMapUrl}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+          <a
+            href={`https://www.openstreetmap.org/?mlat=${practicum1Location.lat}&mlon=${practicum1Location.lng}#map=16/${practicum1Location.lat}/${practicum1Location.lng}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="map-fullscreen-link"
+          >
+            View Larger Map ↗
+          </a>
           <div className="map-note">
             <strong>Court of Appeal, Putrajaya</strong> — Malaysia's premier appellate court, where I observed
             judicial proceedings and analyzed complex legal arguments.
