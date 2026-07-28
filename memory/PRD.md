@@ -32,3 +32,15 @@ Personal legal internship journal landing page for a second-year law student in 
 - P1: Sticky navigation bar with section links
 - P2: Add more diary entries for weeks 3-4
 - P2: Editorial marquee section
+
+## Update (2026-07-28) — Editable Diary System
+- Removed all sample diary entries — diary now starts EMPTY
+- Added password-protected editing (JWT + bcrypt). Admin: alex@journal.com / alex2026
+- Public can VIEW entries; only logged-in owner can add/edit/delete
+- Multiple photo uploads per entry (client-side compressed to base64, stored in MongoDB) with per-photo captions
+- Entry fields: practicum, week, date, title, description, tags, photos
+- Metrics now AUTO-CALCULATED from real entries via /api/stats (days logged, memos drafted, court attendances, practicum terms)
+- Practicum dates kept: Practicum I (03/08/2026–28/08/2026), Practicum II upcoming
+- Backend: /api/auth/* + /api/entries CRUD + /api/stats in server.py
+- Frontend: AuthContext, AdminBar, LoginModal, EntryEditor components; DiarySection + Metrics now dynamic
+- Tested: 13/13 backend + full frontend CRUD flow passed (iteration_1.json)
