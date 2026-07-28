@@ -4,6 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { useAuth } from '../../context/AuthContext';
 import { getEntriesApi, createEntryApi, updateEntryApi, deleteEntryApi } from '../../services/api';
 import EntryEditor from './EntryEditor';
+import Lightbox from './Lightbox';
 import './DiarySection.css';
 
 const formatDisplayDate = (dateStr) => {
@@ -23,6 +24,13 @@ const DiarySection = () => {
   const [loading, setLoading] = useState(true);
   const [editorOpen, setEditorOpen] = useState(false);
   const [editingEntry, setEditingEntry] = useState(null);
+
+  // Lightbox state: { photos: [], index: number } | null
+  const [lightbox, setLightbox] = useState(null);
+
+  const openLightbox = (photos, index) => setLightbox({ photos, index });
+  const closeLightbox = () => setLightbox(null);
+  const navigateLightbox = (index) => setLightbox((lb) => (lb ? { ...lb, index } : lb));
 
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
@@ -172,12 +180,37 @@ const DiarySection = () => {
                 >
                   {entry.photos && entry.photos.length > 0 && (
                     <div className="card-photos">
-                      <img src={entry.photos[0].data} alt={entry.photos[0].caption || entry.title} className="card-photo-main" />
+                      <button
+                        type="button"
+                        className="card-photo-main-btn"
+                        onClick={() => openLightbox(entry.photos, 0)}
+                        data-testid={`open-photo-${entry.id}`}
+                        aria-label="View photos"
+                      >
+                        <img src={entry.photos[0].data} alt={entry.photos[0].caption || entry.title} className="card-photo-main" />
+                        <span className="card-photo-zoom">View</span>
+                        {entry.photos[0].caption && (
+                          <span className="card-photo-caption">{entry.photos[0].caption}</span>
+                        )}
+                      </button>
+
                       {entry.photos.length > 1 && (
-                        <div className="card-photo-count">+{entry.photos.length - 1}</div>
-                      )}
-                      {entry.photos[0].caption && (
-                        <div className="card-photo-caption">{entry.photos[0].caption}</div>
+                        <div className="card-photo-strip">
+                          {entry.photos.slice(1, 5).map((photo, pIdx) => (
+                            <button
+                              type="button"
+                              key={pIdx}
+                              className="card-photo-thumb-btn"
+                              onClick={() => openLightbox(entry.photos, pIdx + 1)}
+                              data-testid={`thumb-${entry.id}-${pIdx + 1}`}
+                            >
+                              <img src={photo.data} alt={photo.caption || `photo ${pIdx + 2}`} className="card-photo-thumb" />
+                              {pIdx === 3 && entry.photos.length > 5 && (
+                                <span className="card-photo-more">+{entry.photos.length - 5}</span>
+                              )}
+                            </button>
+                          ))}
+                        </div>
                       )}
                     </div>
                   )}
@@ -218,6 +251,13 @@ const DiarySection = () => {
         onSave={handleSave}
         initialEntry={editingEntry}
         activePracticum={activeTab}
+      />
+
+      <Lightbox
+        photos={lightbox?.photos || []}
+        index={lightbox ? lightbox.index : null}
+        onClose={closeLightbox}
+        onNavigate={navigateLightbox}
       />
     </section>
   );

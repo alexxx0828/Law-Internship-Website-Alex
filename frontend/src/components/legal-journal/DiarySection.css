@@ -49,8 +49,17 @@
 }
 
 .card-photos {
-  position: relative;
   margin: -1px -1px 1.25rem;
+}
+
+.card-photo-main-btn {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
   overflow: hidden;
 }
 
@@ -62,19 +71,29 @@
   transition: transform 0.4s var(--ease-smooth);
 }
 
-.diary-card:hover .card-photo-main {
+.card-photo-main-btn:hover .card-photo-main {
   transform: scale(1.04);
 }
 
-.card-photo-count {
+.card-photo-zoom {
   position: absolute;
-  bottom: 0.75rem;
+  top: 0.75rem;
   right: 0.75rem;
   background: var(--color-ink);
   color: var(--color-paper);
+  font-family: var(--font-body);
   font-size: 0.7rem;
-  padding: 0.25rem 0.6rem;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.7rem;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: all 0.25s var(--ease-smooth);
+}
+
+.card-photo-main-btn:hover .card-photo-zoom {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .card-photo-caption {
@@ -82,10 +101,53 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(transparent, rgba(28, 26, 23, 0.75));
+  background: linear-gradient(transparent, rgba(28, 26, 23, 0.78));
   color: var(--color-paper);
   font-size: 0.75rem;
-  padding: 1.5rem 0.75rem 0.5rem;
+  text-align: left;
+  padding: 1.75rem 0.75rem 0.6rem;
+}
+
+.card-photo-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  margin-top: 2px;
+}
+
+.card-photo-thumb-btn {
+  position: relative;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  overflow: hidden;
+  aspect-ratio: 1;
+}
+
+.card-photo-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s var(--ease-smooth), opacity 0.25s var(--ease-smooth);
+}
+
+.card-photo-thumb-btn:hover .card-photo-thumb {
+  transform: scale(1.08);
+}
+
+.card-photo-more {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(28, 26, 23, 0.6);
+  color: var(--color-paper);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 900;
 }
 
 .card-body {

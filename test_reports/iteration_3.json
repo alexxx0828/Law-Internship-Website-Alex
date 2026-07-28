@@ -1,0 +1,28 @@
+{
+  "summary": "Frontend-only regression test of the photo attachment flow on /legal-journal. Login, entry creation with 3 uploaded PNGs (client-side compressImage produced base64 data URLs), captions typed, save, gallery rendering (card-photo-main + card-photo-strip with 2 thumbnails for a 3-photo entry), Lightbox open/next/prev/close with counter (1/3 -> 2/3 -> 1/3), reload persistence (photos returned by GET /api/entries), edit flow (existing photos rendered, remove-photo-0 decremented from 3 to 2), and cleanup delete (empty state restored). All flows PASS.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "EntryEditor modal", "issues": ["React hydration console warning: '<span> cannot be a child of <option>'. Caused by dev-time visual-editor instrumentation injecting <span data-ve-dynamic> inside <option value={w}>Week {w}</option> in EntryEditor.jsx (Week select) and possibly Practicum select. Not a functional bug but pollutes the console. If it also happens in production build it should be silenced by moving the dynamic expression outside the <option> label or rendering plain text."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Optional: silence the React 'span child of option' hydration warning coming from the Week <option>Week {w}</option> mapping in EntryEditor.jsx. Purely cosmetic; not blocking users."
+  ],
+  "critical_code_review_comments": [
+    "Photos are stored as base64 in MongoDB and returned inline by GET /api/entries. Works for a personal journal, but if the entry count grows this will bloat payloads and mongo doc size (16MB doc cap). Consider moving photos to a separate collection or file storage.",
+    "compressImage() in services/api.js should defensively reject non-image files and cap total combined base64 size before POST to avoid 413/oversized requests.",
+    "Lightbox does not lock body scroll while open; on long diary pages the background can scroll behind the overlay."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a (not tested this iteration)", "frontend": "100%"},
+  "test_credentials": "alex@journal.com / alex2026",
+  "seed_data_creation": "Created and then deleted one test entry with 3 photos. Diary left empty as requested.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Photo upload -> compress -> save -> gallery display -> lightbox nav -> reload persistence -> edit remove -> delete cleanup all verified end-to-end via Playwright on the public URL. Only lingering observation is a React DEV warning about <span> injected inside <option> due to visual-editor instrumentation on EntryEditor.jsx select options; harmless.",
+  "rca of the issue": "N/A - no functional bugs found."
+}
