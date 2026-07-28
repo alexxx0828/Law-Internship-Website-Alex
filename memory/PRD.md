@@ -44,3 +44,11 @@ Personal legal internship journal landing page for a second-year law student in 
 - Backend: /api/auth/* + /api/entries CRUD + /api/stats in server.py
 - Frontend: AuthContext, AdminBar, LoginModal, EntryEditor components; DiarySection + Metrics now dynamic
 - Tested: 13/13 backend + full frontend CRUD flow passed (iteration_1.json)
+
+## Update (2026-07-28) — Inline Editable Content + Photo Gallery/Lightbox
+- Diary cards: main photo + thumbnail strip; click any photo opens full-screen Lightbox (prev/next, keyboard, captions, body-scroll lock)
+- EVERY section text is now inline-editable by the logged-in owner (map itself NOT editable, but its caption is)
+- Backend: db.content collection; GET /api/content (public), PUT /api/content {key,value} (protected)
+- Frontend: ContentContext (CONTENT_DEFAULTS + server overrides), Editable component (ref-based uncontrolled contentEditable, saves on blur, hardened against caret-jump/wipe)
+- Editable keys cover Hero, Overview, Location cards + map caption, Diary heading, Scroll text, Metrics heading+labels, Contact heading+footer
+- Tested: 16/16 backend + 100% frontend (edits persist across reload). iteration_4.json
