@@ -1,19 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { getStatsApi } from '../../services/api';
 import './Metrics.css';
 
 const Metrics = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.3,
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.3 });
+  const [stats, setStats] = useState({
+    days_logged: 0,
+    memos_drafted: 0,
+    court_attendances: 0,
+    practicum_terms: 2,
   });
 
+  const fetchStats = useCallback(async () => {
+    try {
+      const data = await getStatsApi();
+      setStats(data);
+    } catch (e) {
+      console.error('Failed to fetch stats', e);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchStats();
+    window.addEventListener('entriesChanged', fetchStats);
+    return () => window.removeEventListener('entriesChanged', fetchStats);
+  }, [fetchStats]);
+
   const metrics = [
-    { value: 20, label: 'Days Logged', suffix: '+' },
-    { value: 15, label: 'Memos Drafted', suffix: '+' },
-    { value: 8, label: 'Court Attendances', suffix: '+' },
-    { value: 2, label: 'Practicum Terms', suffix: '' },
+    { value: stats.days_logged, label: 'Days Logged', suffix: '' },
+    { value: stats.memos_drafted, label: 'Memos Drafted', suffix: '' },
+    { value: stats.court_attendances, label: 'Court Attendances', suffix: '' },
+    { value: stats.practicum_terms, label: 'Practicum Terms', suffix: '' },
   ];
 
   const textVariants = {
@@ -28,34 +47,17 @@ const Metrics = () => {
   return (
     <section id="metrics" className="metrics-section section-border">
       <div className="section-container" ref={ref}>
-        <motion.div
-          className="section-number"
-          custom={0}
-          initial="hidden"
-          animate={inView ? 'visible' : 'hidden'}
-          variants={textVariants}
-        >
+        <motion.div className="section-number" custom={0} initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={textVariants}>
           04
         </motion.div>
 
-        <motion.h2
-          className="section-heading"
-          custom={1}
-          initial="hidden"
-          animate={inView ? 'visible' : 'hidden'}
-          variants={textVariants}
-        >
+        <motion.h2 className="section-heading" custom={1} initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={textVariants}>
           Cumulative Metrics
         </motion.h2>
 
         <div className="metrics-grid">
           {metrics.map((metric, index) => (
-            <MetricCard
-              key={metric.label}
-              metric={metric}
-              index={index}
-              inView={inView}
-            />
+            <MetricCard key={metric.label} metric={metric} index={index} inView={inView} />
           ))}
         </div>
       </div>
@@ -68,11 +70,14 @@ const MetricCard = ({ metric, index, inView }) => {
 
   useEffect(() => {
     if (inView) {
-      let start = 0;
       const end = metric.value;
+      if (end === 0) {
+        setCount(0);
+        return;
+      }
+      let start = 0;
       const duration = 1500;
       const increment = end / (duration / 16);
-
       const timer = setInterval(() => {
         start += increment;
         if (start >= end) {
@@ -82,7 +87,6 @@ const MetricCard = ({ metric, index, inView }) => {
           setCount(Math.floor(start));
         }
       }, 16);
-
       return () => clearInterval(timer);
     }
   }, [inView, metric.value]);

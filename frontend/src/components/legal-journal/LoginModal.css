@@ -1,0 +1,129 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(28, 26, 23, 0.55);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1.5rem;
+}
+
+.modal-box {
+  background: var(--color-paper);
+  border: 1px solid var(--color-rule);
+  padding: clamp(2rem, 4vw, 3rem);
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+  box-shadow: 0 24px 80px rgba(28, 26, 23, 0.25);
+}
+
+.login-box {
+  max-width: 440px;
+}
+
+.modal-eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-ochre);
+  margin-bottom: 0.75rem;
+}
+
+.modal-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+
+.modal-subtitle {
+  font-size: 0.95rem;
+  font-weight: 300;
+  opacity: 0.75;
+  margin-bottom: 2rem;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.field-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.5rem;
+  color: var(--color-ink);
+}
+
+.field-input {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--color-rule);
+  background: rgba(255, 255, 255, 0.4);
+  color: var(--color-ink);
+  margin-bottom: 1.25rem;
+  transition: border-color 0.25s var(--ease-smooth);
+  outline: none;
+}
+
+.field-input:focus {
+  border-color: var(--color-ochre);
+}
+
+.field-error {
+  color: var(--color-ochre-dark);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(189, 91, 31, 0.1);
+  border: 1px solid rgba(189, 91, 31, 0.2);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+}
+
+.modal-btn {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  border: 1px solid var(--color-ink);
+  transition: all 0.25s var(--ease-smooth);
+}
+
+.modal-btn-primary {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+.modal-btn-primary:hover:not(:disabled) {
+  background: var(--color-ochre);
+  border-color: var(--color-ochre);
+}
+
+.modal-btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.modal-btn-ghost {
+  background: transparent;
+  color: var(--color-ink);
+  border-color: var(--color-rule);
+}
+
+.modal-btn-ghost:hover {
+  border-color: var(--color-ink);
+}

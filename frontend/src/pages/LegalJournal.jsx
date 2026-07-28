@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
 import Lenis from '@studio-freight/lenis';
+import { AuthProvider } from '../context/AuthContext';
+import AdminBar from '../components/legal-journal/AdminBar';
 import Hero from '../components/legal-journal/Hero';
 import Overview from '../components/legal-journal/Overview';
 import DiarySection from '../components/legal-journal/DiarySection';
@@ -14,7 +15,6 @@ const LegalJournal = () => {
   const lenisRef = useRef(null);
 
   useEffect(() => {
-    // Initialize Lenis smooth scroll
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -42,15 +42,18 @@ const LegalJournal = () => {
   }, []);
 
   return (
-    <div className="legal-journal">
-      <Hero />
-      <Overview />
-      <LocationMap />
-      <DiarySection />
-      <ScrollTransition />
-      <Metrics />
-      <Contact />
-    </div>
+    <AuthProvider>
+      <div className="legal-journal">
+        <AdminBar />
+        <Hero />
+        <Overview />
+        <LocationMap />
+        <DiarySection />
+        <ScrollTransition />
+        <Metrics />
+        <Contact />
+      </div>
+    </AuthProvider>
   );
 };
 

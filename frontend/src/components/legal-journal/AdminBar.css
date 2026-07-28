@@ -1,0 +1,70 @@
+.admin-bar {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 500;
+}
+
+.admin-bar-inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(244, 240, 230, 0.9);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--color-rule);
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+}
+
+.admin-badge {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-ochre);
+}
+
+.admin-btn {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid var(--color-ink);
+  background: var(--color-ink);
+  color: var(--color-paper);
+  cursor: pointer;
+  transition: all 0.25s var(--ease-smooth);
+}
+
+.admin-btn:hover {
+  background: var(--color-ochre);
+  border-color: var(--color-ochre);
+}
+
+.admin-btn-login {
+  background: rgba(244, 240, 230, 0.9);
+  backdrop-filter: blur(12px);
+  color: var(--color-ink);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.admin-btn-login:hover {
+  background: var(--color-ochre);
+  color: var(--color-paper);
+}
+
+@media (max-width: 480px) {
+  .admin-bar {
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .admin-btn {
+    font-size: 0.7rem;
+    padding: 0.5rem 0.85rem;
+  }
+
+  .admin-badge {
+    display: none;
+  }
+}
