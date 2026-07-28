@@ -50,20 +50,22 @@ const Contact = () => {
         >
           <li>
             <motion.a
-              href="mailto:alex.siong@example.com"
+              href="mailto:alexsiong2001@gmail.com"
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.98 }}
+              data-testid="contact-email"
             >
               Email
             </motion.a>
           </li>
           <li>
             <motion.a
-              href="https://linkedin.com/in/alexsiong"
+              href="https://www.linkedin.com/in/alex-siong-b90167223/"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.98 }}
+              data-testid="contact-linkedin"
             >
               LinkedIn
             </motion.a>
