@@ -45,7 +45,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<LegalJournal />} />
           <Route path="/legal-journal" element={<LegalJournal />} />
         </Routes>
       </BrowserRouter>
