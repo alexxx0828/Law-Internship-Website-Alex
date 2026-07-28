@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { getStatsApi } from '../../services/api';
+import Editable from './Editable';
 import './Metrics.css';
 
 const Metrics = () => {
@@ -29,10 +30,10 @@ const Metrics = () => {
   }, [fetchStats]);
 
   const metrics = [
-    { value: stats.days_logged, label: 'Days Logged', suffix: '' },
-    { value: stats.memos_drafted, label: 'Memos Drafted', suffix: '' },
-    { value: stats.court_attendances, label: 'Court Attendances', suffix: '' },
-    { value: stats.practicum_terms, label: 'Practicum Terms', suffix: '' },
+    { value: stats.days_logged, labelKey: 'metric_days_label', suffix: '' },
+    { value: stats.memos_drafted, labelKey: 'metric_memos_label', suffix: '' },
+    { value: stats.court_attendances, labelKey: 'metric_court_label', suffix: '' },
+    { value: stats.practicum_terms, labelKey: 'metric_terms_label', suffix: '' },
   ];
 
   const textVariants = {
@@ -52,12 +53,12 @@ const Metrics = () => {
         </motion.div>
 
         <motion.h2 className="section-heading" custom={1} initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={textVariants}>
-          Cumulative Metrics
+          <Editable k="metrics_heading" />
         </motion.h2>
 
         <div className="metrics-grid">
           {metrics.map((metric, index) => (
-            <MetricCard key={metric.label} metric={metric} index={index} inView={inView} />
+            <MetricCard key={metric.labelKey} metric={metric} index={index} inView={inView} />
           ))}
         </div>
       </div>
@@ -112,7 +113,7 @@ const MetricCard = ({ metric, index, inView }) => {
         {count}
         <span className="metric-suffix">{metric.suffix}</span>
       </div>
-      <div className="metric-label">{metric.label}</div>
+      <Editable k={metric.labelKey} as="div" className="metric-label" />
     </motion.div>
   );
 };

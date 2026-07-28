@@ -54,6 +54,21 @@ export const getStatsApi = async () => {
   return data;
 };
 
+// ---------- Editable content ----------
+export const getContentApi = async () => {
+  const { data } = await axios.get(`${API}/content`);
+  return data;
+};
+
+export const updateContentApi = async (key, value) => {
+  const { data } = await axios.put(
+    `${API}/content`,
+    { key, value },
+    { headers: authHeaders() }
+  );
+  return data;
+};
+
 // ---------- Error formatting ----------
 export const formatApiError = (detail) => {
   if (detail == null) return 'Something went wrong. Please try again.';

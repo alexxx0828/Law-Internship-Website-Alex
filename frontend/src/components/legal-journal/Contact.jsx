@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import Editable from './Editable';
 import './Contact.css';
 
 const Contact = () => {
@@ -38,7 +39,7 @@ const Contact = () => {
           animate={inView ? 'visible' : 'hidden'}
           variants={textVariants}
         >
-          Let's Connect
+          <Editable k="contact_heading" />
         </motion.h2>
 
         <motion.ul
@@ -79,7 +80,7 @@ const Contact = () => {
           animate={inView ? 'visible' : 'hidden'}
           variants={textVariants}
         >
-          &copy; 2026 Alex Siong Sie Yang. All rights reserved.
+          <Editable k="footer_text" />
         </motion.div>
       </div>
     </section>

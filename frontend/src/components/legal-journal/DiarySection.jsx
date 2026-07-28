@@ -5,6 +5,7 @@ import { useAuth } from '../../context/AuthContext';
 import { getEntriesApi, createEntryApi, updateEntryApi, deleteEntryApi } from '../../services/api';
 import EntryEditor from './EntryEditor';
 import Lightbox from './Lightbox';
+import Editable from './Editable';
 import './DiarySection.css';
 
 const formatDisplayDate = (dateStr) => {
@@ -98,7 +99,7 @@ const DiarySection = () => {
 
         <div className="diary-header">
           <motion.h2 className="section-heading no-margin" custom={1} initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={textVariants}>
-            Practicum Journals
+            <Editable k="diary_heading" />
           </motion.h2>
           {isAdmin && (
             <motion.button

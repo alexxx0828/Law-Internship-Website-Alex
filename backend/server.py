@@ -204,6 +204,28 @@ async def root():
     return {"message": "Legal Journal API"}
 
 
+# ==================== EDITABLE CONTENT ====================
+class ContentUpdate(BaseModel):
+    key: str
+    value: str
+
+
+@api_router.get("/content")
+async def get_content():
+    doc = await db.content.find_one({"id": "site"}, {"_id": 0})
+    return doc.get("values", {}) if doc else {}
+
+
+@api_router.put("/content")
+async def update_content(payload: ContentUpdate, current_user: dict = Depends(get_current_user)):
+    await db.content.update_one(
+        {"id": "site"},
+        {"$set": {f"values.{payload.key}": payload.value, "id": "site"}},
+        upsert=True,
+    )
+    return {"key": payload.key, "value": payload.value}
+
+
 # Include the router
 app.include_router(api_router)
 

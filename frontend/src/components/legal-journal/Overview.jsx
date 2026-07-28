@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import Editable from './Editable';
 import './Overview.css';
 
 const Overview = () => {
@@ -43,12 +44,7 @@ const Overview = () => {
             },
           }}
         >
-          My practicum journal documents the <em>intersection of legal theory and applied practice</em>.
-          From <em>civil litigation research</em> to drafting memos, attending court hearings at the{' '}
-          <em>Court of Appeal, Putrajaya</em>, and analyzing case law — every entry captures the
-          discipline required to transition from student to practitioner. This record spans{' '}
-          <em>Practicum I (03/08/2026 – 28/08/2026)</em> and the forthcoming Practicum II,
-          offering a comprehensive view of my legal internship journey.
+          <Editable k="overview_text" />
         </motion.p>
       </div>
     </section>

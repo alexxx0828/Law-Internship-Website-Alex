@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import Editable from './Editable';
+import { useAuth } from '../../context/AuthContext';
 import './Hero.css';
 
 const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const { isAdmin } = useAuth();
 
   useEffect(() => {
     setIsLoaded(true);
@@ -70,7 +73,7 @@ const Hero = () => {
           initial="hidden"
           animate="visible"
         >
-          Second-Year Law Student · Malaysia · Practicum Journal
+          <Editable k="hero_eyebrow" />
         </motion.div>
 
         <h1 className="hero-headline">
@@ -81,7 +84,7 @@ const Hero = () => {
             initial="hidden"
             animate="visible"
           >
-            Theory applied to
+            <Editable k="hero_headline_1" />
           </motion.div>
           <motion.div
             className="headline-line headline-italic"
@@ -90,7 +93,7 @@ const Hero = () => {
             initial="hidden"
             animate="visible"
           >
-            legal practice.
+            <Editable k="hero_headline_2" />
           </motion.div>
         </h1>
 
@@ -101,8 +104,7 @@ const Hero = () => {
           initial="hidden"
           animate="visible"
         >
-          I'm Alex Siong Sie Yang, and this is my daily record of bridging classroom doctrine
-          with courtroom discipline across two practicum terms.
+          <Editable k="hero_lede" />
         </motion.p>
 
         <div className="hero-buttons">
@@ -115,8 +117,9 @@ const Hero = () => {
             animate="visible"
             whileHover={{ y: -4, transition: { duration: 0.2 } }}
             whileTap={{ scale: 0.98 }}
+            onClick={(e) => { if (isAdmin) e.preventDefault(); }}
           >
-            Read Daily Diary
+            <Editable k="hero_btn_primary" />
           </motion.a>
           <motion.a
             href="#overview"
@@ -127,8 +130,9 @@ const Hero = () => {
             animate="visible"
             whileHover={{ y: -4, transition: { duration: 0.2 } }}
             whileTap={{ scale: 0.98 }}
+            onClick={(e) => { if (isAdmin) e.preventDefault(); }}
           >
-            Internship Scope
+            <Editable k="hero_btn_outline" />
           </motion.a>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import Editable from './Editable';
 import './LocationMap.css';
 
 const LocationMap = () => {
@@ -47,7 +48,7 @@ const LocationMap = () => {
           animate={inView ? 'visible' : 'hidden'}
           variants={textVariants}
         >
-          Internship Locations
+          <Editable k="location_heading" />
         </motion.h2>
 
         <div className="location-grid">
@@ -59,10 +60,10 @@ const LocationMap = () => {
             variants={textVariants}
             whileHover={{ y: -8, transition: { duration: 0.3 } }}
           >
-            <div className="location-label">Practicum I</div>
-            <h3 className="location-name">Court of Appeal, Putrajaya</h3>
-            <p className="location-address">Istana Kehakiman, Presint 3, 62506 Putrajaya</p>
-            <p className="location-dates">03/08/2026 – 28/08/2026</p>
+            <Editable k="loc1_label" as="div" className="location-label" />
+            <Editable k="loc1_name" as="h3" className="location-name" />
+            <Editable k="loc1_address" as="p" className="location-address" />
+            <Editable k="loc1_dates" as="p" className="location-dates" />
             <div className="location-tags">
               <span className="location-tag">Appellate Court</span>
               <span className="location-tag">Civil & Criminal</span>
@@ -77,10 +78,10 @@ const LocationMap = () => {
             variants={textVariants}
             whileHover={{ y: -8, transition: { duration: 0.3 } }}
           >
-            <div className="location-label">Practicum II</div>
-            <h3 className="location-name">To Be Determined</h3>
-            <p className="location-address">Location pending confirmation</p>
-            <p className="location-dates">Upcoming</p>
+            <Editable k="loc2_label" as="div" className="location-label" />
+            <Editable k="loc2_name" as="h3" className="location-name" />
+            <Editable k="loc2_address" as="p" className="location-address" />
+            <Editable k="loc2_dates" as="p" className="location-dates" />
             <div className="location-tags">
               <span className="location-tag">TBD</span>
             </div>
@@ -110,8 +111,7 @@ const LocationMap = () => {
             View Larger Map ↗
           </a>
           <div className="map-note">
-            <strong>Court of Appeal, Putrajaya</strong> — Malaysia's premier appellate court, where I observed
-            judicial proceedings and analyzed complex legal arguments.
+            <Editable k="map_note_title" as="strong" /> <Editable k="map_note_text" as="span" />
           </div>
         </motion.div>
       </div>

@@ -159,6 +159,39 @@ class TestStats:
         assert after["court_attendances"] == before["court_attendances"] + 1
 
 
+# ==================== CONTENT ====================
+class TestContent:
+    def test_get_content_public(self):
+        r = requests.get(f"{API}/content")
+        assert r.status_code == 200
+        assert isinstance(r.json(), dict)
+
+    def test_put_content_requires_auth(self):
+        r = requests.put(f"{API}/content", json={"key": "TEST_key", "value": "v"})
+        assert r.status_code == 401
+
+    def test_put_content_with_auth_and_persist(self, auth_headers):
+        test_key = "TEST_content_key"
+        test_val = "TEST value 12345"
+        r = requests.put(f"{API}/content", json={"key": test_key, "value": test_val}, headers=auth_headers)
+        assert r.status_code == 200, r.text
+        data = r.json()
+        assert data["key"] == test_key
+        assert data["value"] == test_val
+
+        # verify via GET
+        r2 = requests.get(f"{API}/content")
+        assert r2.status_code == 200
+        assert r2.json().get(test_key) == test_val
+
+        # update again
+        new_val = "TEST value updated"
+        r3 = requests.put(f"{API}/content", json={"key": test_key, "value": new_val}, headers=auth_headers)
+        assert r3.status_code == 200
+        r4 = requests.get(f"{API}/content")
+        assert r4.json().get(test_key) == new_val
+
+
 # ==================== CLEANUP ====================
 class TestZCleanup:
     def test_delete_all_test_entries(self, auth_headers):

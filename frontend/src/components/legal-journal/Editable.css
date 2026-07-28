@@ -1,0 +1,22 @@
+.editable {
+  outline: none;
+  cursor: text;
+  border-radius: 2px;
+  transition: box-shadow 0.2s var(--ease-smooth), background-color 0.2s var(--ease-smooth);
+}
+
+/* Subtle hint that text is editable when logged in */
+.editable:hover {
+  box-shadow: 0 0 0 1px var(--color-rule);
+  background-color: rgba(189, 91, 31, 0.04);
+}
+
+.editable:focus {
+  box-shadow: 0 0 0 2px var(--color-ochre);
+  background-color: rgba(189, 91, 31, 0.06);
+}
+
+/* Dashed affordance underline for editable inline text */
+.editable::selection {
+  background: rgba(189, 91, 31, 0.25);
+}

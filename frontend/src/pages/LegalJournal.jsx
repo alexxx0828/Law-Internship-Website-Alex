@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import Lenis from '@studio-freight/lenis';
 import { AuthProvider } from '../context/AuthContext';
+import { ContentProvider } from '../context/ContentContext';
 import AdminBar from '../components/legal-journal/AdminBar';
 import Hero from '../components/legal-journal/Hero';
 import Overview from '../components/legal-journal/Overview';
@@ -43,16 +44,18 @@ const LegalJournal = () => {
 
   return (
     <AuthProvider>
-      <div className="legal-journal">
-        <AdminBar />
-        <Hero />
-        <Overview />
-        <LocationMap />
-        <DiarySection />
-        <ScrollTransition />
-        <Metrics />
-        <Contact />
-      </div>
+      <ContentProvider>
+        <div className="legal-journal">
+          <AdminBar />
+          <Hero />
+          <Overview />
+          <LocationMap />
+          <DiarySection />
+          <ScrollTransition />
+          <Metrics />
+          <Contact />
+        </div>
+      </ContentProvider>
     </AuthProvider>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import Editable from './Editable';
 import './ScrollTransition.css';
 
 const ScrollTransition = () => {
@@ -30,7 +31,7 @@ const ScrollTransition = () => {
             </svg>
           </motion.div>
           <motion.p className="scroll-transition-text" style={{ opacity }}>
-            Rigorous legal analysis, grounded in discipline.
+            <Editable k="scroll_text" />
           </motion.p>
         </motion.div>
       </div>
