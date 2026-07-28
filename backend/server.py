@@ -23,7 +23,10 @@ db = client[os.environ['DB_NAME']]
 
 # JWT config
 JWT_ALGORITHM = "HS256"
-JWT_SECRET = os.environ['JWT_SECRET']
+# Fallback default ensures the backend still starts (and issues valid tokens) even
+# if JWT_SECRET is not provided in the deployment environment (e.g. a GitHub clone
+# where .env was not committed). Set JWT_SECRET in the environment for real security.
+JWT_SECRET = os.environ.get('JWT_SECRET', 'legal-journal-default-secret-change-me-2026')
 ACCESS_TOKEN_EXPIRE_DAYS = 7
 
 app = FastAPI()
@@ -243,8 +246,11 @@ logger = logging.getLogger(__name__)
 
 # ==================== ADMIN SEEDING ====================
 async def seed_admin():
-    admin_email = os.environ.get("ADMIN_EMAIL", "admin@example.com").strip().lower()
-    admin_password = os.environ.get("ADMIN_PASSWORD", "admin123")
+    # Defaults match the owner's real credentials so login works even when the
+    # deployment environment does not carry ADMIN_EMAIL / ADMIN_PASSWORD (e.g. a
+    # GitHub clone where .env is not committed). Override via env for security.
+    admin_email = os.environ.get("ADMIN_EMAIL", "alex@journal.com").strip().lower()
+    admin_password = os.environ.get("ADMIN_PASSWORD", "alex2026")
     existing = await db.users.find_one({"email": admin_email})
     if existing is None:
         await db.users.insert_one({

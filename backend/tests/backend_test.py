@@ -28,6 +28,50 @@ def auth_headers(token):
     return {"Authorization": f"Bearer {token}"}
 
 
+# ==================== HEALTH ====================
+class TestHealth:
+    def test_root_api(self):
+        r = requests.get(f"{API}/")
+        assert r.status_code == 200
+        assert "message" in r.json()
+
+
+# ==================== BCRYPT/DB SEED ====================
+class TestSeededAdmin:
+    def test_admin_bcrypt_hash_and_verify(self):
+        """Verify seeded admin exists in Mongo with bcrypt hash and password verifies."""
+        import asyncio
+        from motor.motor_asyncio import AsyncIOMotorClient
+        import bcrypt as _bcrypt
+
+        mongo_url = os.environ.get("MONGO_URL")
+        db_name = os.environ.get("DB_NAME")
+        if not mongo_url or not db_name:
+            # Read from backend .env
+            with open("/app/backend/.env") as f:
+                env = {}
+                for line in f:
+                    if "=" in line and not line.startswith("#"):
+                        k, v = line.strip().split("=", 1)
+                        env[k] = v.strip('"').strip("'")
+            mongo_url = mongo_url or env.get("MONGO_URL")
+            db_name = db_name or env.get("DB_NAME")
+
+        async def _check():
+            client = AsyncIOMotorClient(mongo_url)
+            db = client[db_name]
+            user = await db.users.find_one({"email": ADMIN_EMAIL})
+            client.close()
+            return user
+
+        user = asyncio.get_event_loop().run_until_complete(_check())
+        assert user is not None, f"Admin {ADMIN_EMAIL} not seeded in {db_name}"
+        assert user.get("role") == "admin"
+        ph = user["password_hash"]
+        assert ph.startswith("$2b$") or ph.startswith("$2a$"), f"bcrypt hash format wrong: {ph[:6]}"
+        assert _bcrypt.checkpw(ADMIN_PASSWORD.encode(), ph.encode())
+
+
 # ==================== AUTH ====================
 class TestAuth:
     def test_login_success(self):
